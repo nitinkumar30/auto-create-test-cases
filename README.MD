@@ -1,4 +1,4 @@
-# 🧪 Petstore API Testing
+# 🧪 Auto-Generate Test Cases (API)
 
 This is a Python-based API test automation framework scaffolded from an OpenAPI YAML file (`openapi/petstore.yaml`).
 It uses `behave` for BDD testing and `requests` for API calls.
