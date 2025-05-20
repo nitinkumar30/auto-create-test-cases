@@ -1,103 +1,126 @@
-# 🧪 Auto Test Case Generator
+# 🧪 Petstore API Testing
 
-This project automates the generation and execution of API test cases using OpenAPI (Swagger) YAML files.  
-It supports random payload generation, dynamic test case execution, and a flexible test framework.
-
----
-
-## 🚀 Features
-
-- ✅ Parses OpenAPI YAML files
-- ✅ Generates Gherkin-based test scenarios automatically
-- ✅ Sends API requests using `requests`
-- ✅ Supports all HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
-- ✅ Random JSON payload generation for `POST` and `PUT` requests using [Faker](https://faker.readthedocs.io/)
-- ✅ Payloads saved to `.json` files for debugging and reuse
+This is a Python-based API test automation framework scaffolded from an OpenAPI YAML file (`openapi/petstore.yaml`).
+It uses `behave` for BDD testing and `requests` for API calls.
 
 ---
 
-## 📁 Project Structure
+## 📘 Overview
 
-```
-auto\_testcase\_generator/
-│
-├── input.yaml                     # Your OpenAPI spec
-├── generated\_file\_contents.py     # Helper for payloads, file writers, etc.
-├── framework\_generator.py         # Core logic to parse spec and generate steps
-├── features/
-│   ├── sample.feature             # Gherkin-style feature file
-│   └── steps/
-│       └── sample\_step\_definitions.py  # Step implementations (uses requests)
-├── post\_payload.json              # Randomly generated POST request body
-├── put\_payload.json               # Randomly generated PUT request body
-└── README.md                      # This file
+This framework auto-generates:
 
+- ✅ `config/config.properties`: API base URL, timeout, log level, environment
+- ✅ `config_reader.py`: Utility to read config values
+- ✅ `core/utils.py`: Logging, headers, and request utilities
+- ✅ `requirements.txt`: Required Python packages
+- ✅ `README.md`: This help file
+
+---
+
+## 📥 Input: OpenAPI YAML
+
+Provide a valid OpenAPI 3.x YAML file like:
+
+```yaml
+openapi: 3.0.0
+info:
+  title: Your API
+  version: 1.0.0
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+paths:
+  /resource:
+    get:
+      summary: Example endpoint
 ````
 
 ---
 
-## ⚙️ Setup
+## 👤 Input from user
 
-### 1. Clone the Repository
+Following are the inputs user needs to give:
+
+![img.png](img.png)
+
+---
+
+## 🚀 How to Use
 
 ```bash
-git clone https://github.com/your-username/auto_testcase_generator.git
-cd auto_testcase_generator
-````
-
-### 2. Create a Virtual Environment (optional)
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python generate_framework.py
 ```
 
-### 3. Install Dependencies
+You will be prompted to input:
+
+* 📄 YAML path (e.g. `openapi/petstore.yaml`)
+* 📝 Feature title (e.g. `Petstore API Testing`)
+* 🔐 Auth token (optional)
+* ⏱️ Timeout
+* 🌍 Environment
+* 📢 Logging level
+
+---
+
+## 📁 Generated Structure
+
+```
+your_project/
+├── generate_framework.py
+├── requirements.txt
+├── README.md
+├── config/
+│   ├── __init__.py
+│   ├── config.properties
+│   └── config_reader.py
+├── core/
+│   ├── __init__.py
+│   └── utils.py
+└── openapi/
+    └── petstore.yaml
+```
+
+---
+
+## 🛠 Requirements
+
+Install all dependencies with:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-If there's no `requirements.txt`, install these manually:
+Installed libraries include:
+
+* `pyyaml`
+* `requests`
+* `behave`
+
+---
+
+## ✅ Next Steps
+
+Once scaffolded, you can:
+
+1. Add `.feature` files under `features/`
+2. Write BDD test steps using `core/utils.py`
+3. Run tests using:
 
 ```bash
-pip install requests pyyaml faker behave
+behave
 ```
 
 ---
 
-## 🧪 Running Tests
+## 💡 Notes
 
-### 1. Generate Payload (Optional Manual Step)
-
-```bash
-python -c "from generated_file_contents import generate_post_payload; generate_post_payload('post')"
-```
-
-### 2. Run Tests Using `behave`
-
-```bash
-behave features/
-```
+* All scripts should be run from the project **root** directory.
+* Relative imports like `from ..config.config_reader import ConfigReader` work because folders are treated as Python packages (`__init__.py` present).
 
 ---
 
-## 🛠 Configuration
+## 📬 Feedback
 
-* Input your OpenAPI YAML spec as `input.yaml` (or pass a different one into your parser).
-* Adjust the Faker-based random payloads in `generate_post_payload()`.
+Feel free to open issues or improve this project!
 
----
+````
 
-## 📌 Notes
-
-* Payloads for `POST` and `PUT` are automatically created and stored as `post_payload.json` and `put_payload.json`.
-* You can override `context.body` in custom steps if needed.
-* Logs and response codes are printed to help debugging.
-
----
-
-
-## 👨‍💻 Author
-
-Created by [Nitin Kumar](https://linkedin.com/in/nitin30kumar/) — Contributions welcome!
