@@ -47,7 +47,7 @@ Following are the inputs user needs to give:
 ## 🚀 How to Use
 
 ```bash
-python generate_framework.py
+python main.py
 ```
 
 You will be prompted to input:
